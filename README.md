@@ -53,3 +53,5 @@ const baseRouter = router({
 And take a good look at `client.ts`, Typescript should display a type error.
 
 You can also then regenerate the schema for `remote-client.ts` to see the same error.
+
+For see changes in runtime, you have to restart the `server.ts`, this example does not use something like `nodemon`.

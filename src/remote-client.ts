@@ -1,7 +1,7 @@
 import { createProxyClient } from '@ptsq/client';
-import { RootRouter } from './schema.generated';
+import { BaseRouter } from './schema.generated';
 
-const client = createProxyClient<RootRouter>({
+const client = createProxyClient<BaseRouter>({
   url: 'http://localhost:4000/ptsq',
 });
 

@@ -4,7 +4,7 @@
 
 [https://ptsq-docs.vercel.app/](https://ptsq-docs.vercel.app/)
 
-## Command to run the example
+## Commands to run the example
 
 ### Start the ptsq server
 
@@ -38,15 +38,18 @@ Try to change the `server.ts` resolver like this.
 
 ```ts
 const baseRouter = router({
-  greetings: resolver.query({
-    input: z.object({
-      name: z.number(),
+  greetings: resolver
+    .args(
+      z.object({
+        name: z.number(),
+      })
+    )
+    .query({
+      output: z.string(),
+      resolve: ({ input }) => {
+        return `Hello, ${input.name}`;
+      },
     }),
-    output: z.string(),
-    resolve: ({ input }) => {
-      return `Hello, ${input.name}`;
-    },
-  }),
 });
 ```
 

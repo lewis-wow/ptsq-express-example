@@ -1,4 +1,4 @@
-import { HTTPError, createServer } from '@ptsq/server';
+import { createServer } from '@ptsq/server';
 import express, { Request, Response } from 'express';
 import { z } from 'zod';
 
@@ -18,35 +18,15 @@ const { router, resolver, serve } = createServer({
   ctx: createContext,
 });
 
-const authedResolver = resolver.use(({ ctx, next }) => {
-  if (!ctx.user) throw new HTTPError({ code: 'UNAUTHORIZED' });
-
-  return next({
-    ...ctx,
-    user: ctx.user,
-  });
-});
-
 const greetingsQuery = resolver
   .args(
     z.object({
-      name: z.string(),
-    })
-  )
-  .transformation({
-    name: (input) => input.length,
-  })
-  .transformation({
-    name: (input) => [input] as const,
-  })
-  .args(
-    z.object({
-      name: z.string(),
+      firstName: z.string(),
     })
   )
   .output(z.string())
   .query(({ input }) => {
-    return `Hello, ${input.name}`;
+    return `Hello, ${input.firstName}`;
   });
 
 const baseRouter = router({
